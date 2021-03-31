@@ -2,8 +2,8 @@
 FROM jupyter/all-spark-notebook:latest
 
 # name your environment and choose python 3.x version
-ARG conda_env=python38
-ARG py_ver=3.8
+ARG conda_env=python36
+ARG py_ver=3.6
 
 # you can add additional libraries you want conda to install by listing them below the first line and ending with "&& \"
 RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel && \
