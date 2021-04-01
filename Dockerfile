@@ -18,7 +18,10 @@ RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipyt
 #     conda clean --all -f -y
 ADD https://github.com/tencentyun/hadoop-cos/releases/download/v5.9.3/hadoop-cos-3.1.0-5.9.3.jar /usr/local/spark/jars/hadoop-cos-3.1.0-5.9.3.jar
 ADD https://github.com/tencentyun/hadoop-cos/releases/download/v5.9.3/cos_api-bundle-5.6.35.jar /usr/local/spark/jars/cos_api-bundle-5.6.35.jar 
-
+USER root
+RUN chmod a+r  /usr/local/spark/jars/cos_api-bundle-5.6.35.jar && \
+    chmod a+r  /usr/local/spark/jars/hadoop-cos-3.1.0-5.9.3.jar
+USER $NB_USER
 # create Python 3.x environment and link it to jupyter
 RUN $CONDA_DIR/envs/${conda_env}/bin/python -m ipykernel install --user --name=${conda_env} && \
     fix-permissions $CONDA_DIR && \
